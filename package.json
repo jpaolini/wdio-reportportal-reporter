@@ -4,7 +4,6 @@
   "description": "A WebdriverIO v5 plugin. Report results to Report Portal.",
   "main": "build/reporter.js",
   "scripts": {
-    "prepare": "npm run build",
     "build": "run-s clean compile",
     "clean": "rimraf ./build ./coverage",
     "compile": "node ./node_modules/typescript/lib/tsc.js",
@@ -19,9 +18,6 @@
   "directories": {
     "lib": "./lib"
   },
-  "files": [
-    "build/"
-  ],
   "keywords": [
     "reporter",
     "webdriverio",
