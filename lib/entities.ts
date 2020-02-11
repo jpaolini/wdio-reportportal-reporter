@@ -1,5 +1,5 @@
-import {STATUS, TYPE} from "./constants";
-import {parseTags} from "./utils";
+import { STATUS, TYPE } from "./constants";
+import { parseTags } from "./utils";
 
 export class StartTestItem {
   public name = "";
@@ -10,6 +10,7 @@ export class StartTestItem {
   public type: TYPE;
   public codeRef: string;
   public retry = false;
+  public launchUuid: string;
 
   constructor(name: string, type: TYPE) {
     this.name = name;
@@ -23,7 +24,7 @@ export class StartTestItem {
     const tags = parseTags(this.name);
     if (tags.length > 0) {
       this.tags = tags;
-      this.attributes = tags.map((value) => ({value}));
+      this.attributes = tags.map(value => ({ value }));
     }
   }
 }
@@ -32,6 +33,7 @@ export class EndTestItem {
   public status: STATUS;
   public issue?: Issue;
   public description?: string;
+  public launchUuid: string;
 
   constructor(status: STATUS, issue?: Issue) {
     this.status = status;

@@ -61,6 +61,7 @@ class ReportPortalReporter extends Reporter {
   private onSuiteStart(suite: any) {
     log.trace(`Start suite ${suite.title} ${suite.uid}`);
     const suiteStartObj = new StartTestItem(suite.title, TYPE.SUITE);
+    suiteStartObj.launchUuid = this.launchId;
     const suiteItem = this.storage.getCurrentSuite();
     let parentId = null;
     if (suiteItem !== null) {
@@ -82,7 +83,7 @@ class ReportPortalReporter extends Reporter {
   private onSuiteEnd(suite: any) {
     log.trace(`End suite ${suite.title} ${suite.uid}`);
     const suiteItem = this.storage.getCurrentSuite();
-    const finishSuiteObj = {status: STATUS.PASSED};
+    const finishSuiteObj = {status: STATUS.PASSED, launchUuid: this.launchId};
     const {promise} = this.client.finishTestItem(suiteItem.id, finishSuiteObj);
     promiseErrorHandler(promise);
     this.storage.removeSuite();
@@ -96,6 +97,7 @@ class ReportPortalReporter extends Reporter {
     const suite = this.storage.getCurrentSuite();
     const testStartObj = new StartTestItem(test.title, type);
     testStartObj.codeRef = this.specFile;
+    testStartObj.launchUuid = this.launchId;
     if (this.options.parseTagsFromTestTitle) {
       testStartObj.addTags();
     }
@@ -146,6 +148,7 @@ class ReportPortalReporter extends Reporter {
     }
 
     const finishTestObj = new EndTestItem(status, issue);
+    finishTestObj.launchUuid = this.launchId;
     if (status === STATUS.FAILED) {
       const message = `${test.error.stack} `;
       finishTestObj.description = `❌ ${message}`;
