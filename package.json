@@ -16,7 +16,8 @@
     "url": "git+https://github.com/borisosipov/wdio-reportportal-reporter.git"
   },
   "directories": {
-    "lib": "./lib"
+    "lib": "./lib",
+    "build": ".build"
   },
   "keywords": [
     "reporter",
